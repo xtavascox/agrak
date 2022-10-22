@@ -5,6 +5,7 @@ import {IUser} from "../interfaces/interfaces";
 import {Card} from "../components/Card";
 import {useGetUserListQuery} from "../store/apis/userApi";
 import {useNavigate} from "react-router-dom";
+import {Spinner} from "../components/Spinner";
 
 
 export const Home = () => {
@@ -16,7 +17,6 @@ export const Home = () => {
     }
     return (
         <>
-            {isLoading && <h1 style={{color: 'white'}}>Loading....</h1>}
             <div className='home__container'>
                 <div className='home__grid'>
                     {
@@ -29,6 +29,8 @@ export const Home = () => {
             <button className='button button--float' onClick={handleCreate}>
                 Create
             </button>
+
+            {isLoading &&  <Spinner/>}
         </>
     )
 }

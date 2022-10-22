@@ -1,3 +1,4 @@
+
 .user__container {
     width: 100vw;
     height: 100vh;
@@ -17,6 +18,19 @@
     align-items: center;
     border-radius: 20px;
     padding: 25px;
+}
+.container__back__button{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 40px;
+}
+.container__back__button__img{
+    cursor: pointer;
+    transition: all ease-in-out .3s;
+}
+.container__back__button__img:hover{
+    transform:scale(1.1) ;
 }
 
 .form__section {

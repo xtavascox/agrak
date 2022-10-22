@@ -7,8 +7,6 @@ export const Navigation = () => {
 
 
         <BrowserRouter>
-
-
             <Routes>
                 <Route path="home" element={<Home/>}/>
                 <Route path="user" element={<User/>}/>

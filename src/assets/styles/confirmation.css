@@ -1,0 +1,32 @@
+.confirmation__card {
+    position: absolute;
+    background-color: rgba(0,0,0,.7);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.confirmation__card__container {
+    border-radius: 20px;
+    border-color: #D7DBDD;
+    background-color: #ECF0F1;
+    height: 150px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.confirmation__card__container__title{
+    width: 100%;
+    border-bottom: 1px solid #D7DBDD;
+}
+.confirmation__card__container__buttonGroup{
+    display: flex;
+    gap: 10px;
+}

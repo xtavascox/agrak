@@ -1,11 +1,12 @@
 import notFound from "../assets/img/404.gif";
 import {IUser} from "../interfaces/interfaces";
-import {FC, useEffect} from "react";
+import {FC, useEffect, useState} from "react";
 import '../assets/styles/card.css'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {setUser} from "../store/slices/userSlice";
 import {useDeleteUserMutation} from "../store/apis/userApi";
+import {ConfirmationCard} from "./ConfirmationCard";
 
 interface ICardProps {
     user: IUser
@@ -13,7 +14,8 @@ interface ICardProps {
 
 export const Card: FC<ICardProps> = ({user}) => {
     const navigate = useNavigate();
-    const state = useAppSelector(state => state.userSelected)
+    // const state = useAppSelector(state => state.userSelected)
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
     const dispatch = useAppDispatch();
     const [deleteUser, {
         isLoading: isLoadingDelete,
@@ -25,7 +27,6 @@ export const Card: FC<ICardProps> = ({user}) => {
     const handleSelection = () => {
         navigate('/user');
         dispatch(setUser(user));
-        console.log('usuario seleccionado', state)
     }
     const handleDelete = () => {
         deleteUser(user.id)
@@ -44,13 +45,13 @@ export const Card: FC<ICardProps> = ({user}) => {
                         <button className='button' onClick={handleSelection}>
                             Update
                         </button>
-                        <button className='button button--delete' onClick={handleDelete}>
+                        <button className='button button--delete' onClick={()=>setShowConfirmation(true)}>
                             Delete
                         </button>
                     </div>
                 </div>
-
             </div>
+            {showConfirmation && <ConfirmationCard confirmation={handleDelete} reject={()=>setShowConfirmation(false)} />}
         </>
     )
 }

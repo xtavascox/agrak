@@ -1,15 +1,22 @@
 import {useForm, SubmitHandler} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import {useEffect} from "react";
-import {useAppSelector} from "../hooks/hooks";
+import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from "../hooks/hooks";
 import {IUser} from "../interfaces/interfaces";
 import '../assets/styles/user.css'
 import {useDeleteUserMutation, usePosCreateUserMutation, useUpdateUserMutation} from "../store/apis/userApi";
+import {Spinner} from "../components/Spinner";
+import {BsFillArrowLeftCircleFill} from "react-icons/bs";
+import {clearUser} from "../store/slices/userSlice";
+import {ConfirmationCard} from "../components/ConfirmationCard";
 
 export const User = () => {
-    const {register, handleSubmit, watch, formState: {errors}} = useForm<IUser>({mode: 'onBlur'});
+
+    const {register, handleSubmit, formState: {errors}} = useForm<IUser>({mode: 'onBlur'});
     const user = useAppSelector(state => state.userSelected)
+    const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
     const [createUser, {
         isLoading: isLoadingCreate,
         error: errorCreate,
@@ -30,27 +37,35 @@ export const User = () => {
         if (statusDelete === 'fulfilled' || statusCreate === 'fulfilled' || statusUpdate === 'fulfilled') {
             navigate('/');
         }
-    }, [statusDelete, statusCreate,statusUpdate]);
+    }, [statusDelete, statusCreate, statusUpdate]);
 
     const onSubmit: SubmitHandler<IUser> = (data) => {
         if (user.id) {
-            console.log('actualizacion', data);
             updateUser({id: user.id, ...data})
+            dispatch(clearUser());
             return;
         }
-        console.log('creacion', data);
+        dispatch(clearUser());
         createUser(data);
         navigate('/');
     };
+
     const handleDelete = () => {
-        console.log('Elimacion');
+        dispatch(clearUser());
         deleteUser(user.id);
+
+    }
+    const handleBack = () => {
+        navigate('/');
+        dispatch(clearUser());
     }
 
     return (
         <div className='user__container'>
             <form className='form' onSubmit={handleSubmit(onSubmit)}>
-
+                <div className='container__back__button'>
+                    <BsFillArrowLeftCircleFill className='container__back__button__img' onClick={handleBack}/>
+                </div>
                 <div className='form__section'>
                     <label className='form__label'>First Name</label>
                     <input className='form__input'
@@ -107,12 +122,15 @@ export const User = () => {
                         {user.id ? 'Update' : 'Create'}
                     </button>
                     {user.id && (
-                        <button className='button button--delete' type="button" onClick={handleDelete}>
+                        <button className='button button--delete' type="button"
+                                onClick={() => setShowConfirmation(true)}>
                             Delete
                         </button>
                     )}
                 </div>
             </form>
+            {isLoadingDelete || isLoadingUpdate || isLoadingCreate && <Spinner/>}
+            {showConfirmation && <ConfirmationCard confirmation={handleDelete} reject={handleBack}/>}
         </div>
     )
 }
