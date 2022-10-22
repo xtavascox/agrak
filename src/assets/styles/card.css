@@ -1,0 +1,26 @@
+img {
+    height: 100%;
+    width: 100%;
+}
+
+.card {
+    padding: 20px;
+    display: flex;
+    gap: 50px;
+    border: 1px solid #CCD1D1;
+    border-radius: 10px;
+    transition: all ease-in-out .2s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+}
+
+.card__image {
+    max-width: 30%;
+}
+.card__body__buttonGroup{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

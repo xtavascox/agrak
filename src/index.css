@@ -1,0 +1,66 @@
+*::-webkit-scrollbar {
+    width: 16px;
+
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #AEB6BF;
+    border-radius: 20px;
+    border: none;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 32%, rgba(0, 212, 255, 1) 100%);
+    overflow: hidden;
+}
+
+.loader{
+    background-color: black;
+    opacity: 0.5;
+    z-index: 10;
+}
+
+
+.button {
+    width: 150px;
+    padding: 10px;
+    background-color: #090979;
+    font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    border-radius: 5px;
+    border: none;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button:active {
+    color: #090979;
+    background-color: white;
+    border: 1px solid #090979;
+}
+
+.button--delete {
+    background-color: rgba(252, 70, 107, 0.8575805322128851);
+}
+
+.button--delete:active {
+    background-color: white;
+    border: 1px solid rgba(252, 70, 107, 0.8575805322128851);
+    color: rgba(252, 70, 107, 0.8575805322128851);
+}
+
+.button--float {
+    position: absolute;
+    right: 5.3%;
+    top: 4%;
+}
